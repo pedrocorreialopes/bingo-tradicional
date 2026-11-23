@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#070b18">
+  <meta name="description" content="Chamador de Bingo 75 profissional, offline, com sorteio automático, recuperação de partida e modo telão.">
+  <title>Bingo 75 — Chamador Profissional</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="navy">
+  <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7V5Z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h4v14H7zm6 0h4v14h-4z"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="m5 5 10 7-10 7V5Zm12 0h3v14h-3z"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M6.1 8A7 7 0 0 1 18.7 6L20 8M4 16l1.3 2A7 7 0 0 0 17.9 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="m9.6 3-.6 2.1-2 .9-2-.4-2 3.5 1.6 1.5v2.2L3 14.3l2 3.5 2-.4 2 .9.6 2.1h4.1l.6-2.1 2-.9 2 .4 2-3.5-1.6-1.5v-2.2L21 9.1l-2-3.5-2 .4-2-.9L14.4 3H9.6Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="11.8" cy="11.9" r="3" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="i-expand" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8m0-5v5h5m4-1v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0V4Zm0 2H4v2a4 4 0 0 0 4 4m8-6h4v2a4 4 0 0 1-4 4m-4 1v4m-4 3h8m-6-3h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3m3 0-1 14H7L6 7m4 4v6m4-6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 3 8 3v6c0 5-3.4 8-8 9-4.6-1-8-4-8-9V6l8-3Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m8 12 2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  </svg>
+
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <header class="app-header">
+    <a class="brand" href="index.html" aria-label="Bingo 75 — início">
+      <span class="brand-ball" aria-hidden="true">B</span>
+      <span class="brand-copy"><strong>BINGO <em>75</em></strong><small>CHAMADOR PROFISSIONAL</small></span>
+    </a>
+    <div class="session-status" id="session-status" role="status">
+      <span class="status-dot"></span>
+      <span id="session-status-text">Sistema pronto</span>
+      <span class="session-id" id="session-id">NOVA PARTIDA</span>
+    </div>
+    <nav class="header-actions" aria-label="Ferramentas">
+      <button class="icon-button labeled" type="button" data-action="recover" title="Recuperar último jogo">
+        <svg class="icon"><use href="#i-history"/></svg><span>Recuperar</span>
+      </button>
+      <button class="icon-button labeled" type="button" data-action="settings" title="Abrir configurações">
+        <svg class="icon"><use href="#i-settings"/></svg><span>Ajustes</span>
+      </button>
+      <button class="button button-projection" type="button" data-action="projection" aria-label="Ativar modo telão">
+        <svg class="icon"><use href="#i-expand"/></svg><span>Modo telão</span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="app-main" id="app-main">
+    <section class="game-layout" aria-label="Mesa principal de bingo">
+      <article class="panel board-panel" aria-labelledby="board-title">
+        <header class="panel-heading board-heading">
+          <div>
+            <span class="eyebrow">ACOMPANHE OS NÚMEROS</span>
+            <h1 id="board-title">Tabuleiro oficial</h1>
+          </div>
+          <div class="board-legend"><span class="legend-light"></span><span id="board-count">0 de 75 sorteadas</span></div>
+        </header>
+        <div class="bingo-board" id="bingo-board" role="group" aria-label="Tabuleiro de 75 números">
+          <section class="board-column column-b" data-letter="B" aria-label="B, números de 1 a 15">
+            <header class="column-header"><strong>B</strong><span>01 — 15</span></header><div class="column-numbers" data-column="B"></div>
+          </section>
+          <section class="board-column column-i" data-letter="I" aria-label="I, números de 16 a 30">
+            <header class="column-header"><strong>I</strong><span>16 — 30</span></header><div class="column-numbers" data-column="I"></div>
+          </section>
+          <section class="board-column column-n" data-letter="N" aria-label="N, números de 31 a 45">
+            <header class="column-header"><strong>N</strong><span>31 — 45</span></header><div class="column-numbers" data-column="N"></div>
+          </section>
+          <section class="board-column column-g" data-letter="G" aria-label="G, números de 46 a 60">
+            <header class="column-header"><strong>G</strong><span>46 — 60</span></header><div class="column-numbers" data-column="G"></div>
+          </section>
+          <section class="board-column column-o" data-letter="O" aria-label="O, números de 61 a 75">
+            <header class="column-header"><strong>O</strong><span>61 — 75</span></header><div class="column-numbers" data-column="O"></div>
+          </section>
+        </div>
+        <footer class="board-footer">
+          <span><i class="mini-ball drawn"></i> Sorteada</span>
+          <span><i class="mini-ball"></i> Disponível</span>
+          <span class="board-fairness"><svg class="icon"><use href="#i-shield"/></svg> Sorteio sem repetição</span>
+        </footer>
+      </article>
+
+      <article class="panel stage-panel" id="stage-panel" aria-labelledby="stage-title">
+        <div class="stage-topline">
+          <span class="eyebrow" id="stage-title">BOLA DA VEZ</span>
+          <span class="live-badge" id="live-badge"><i></i><span>AGUARDANDO</span></span>
+        </div>
+        <div class="ball-stage" id="ball-stage">
+          <div class="orbit orbit-one" aria-hidden="true"></div>
+          <div class="orbit orbit-two" aria-hidden="true"></div>
+          <div class="current-ball empty" id="current-ball" role="status" aria-live="assertive" aria-atomic="true">
+            <span class="ball-shine" aria-hidden="true"></span>
+            <span class="current-letter" id="current-letter">BINGO</span>
+            <strong class="current-number" id="current-number">—</strong>
+            <span class="current-caption" id="current-caption">75 BOLAS</span>
+          </div>
+        </div>
+        <div class="draw-label">
+          <strong id="draw-label">Pronto para o primeiro sorteio</strong>
+          <span id="draw-subtitle">Toque em “Iniciar jogo” para começar</span>
+        </div>
+        <div class="recent-block" id="recent-block">
+          <div class="recent-heading"><span>ÚLTIMAS BOLAS</span><span id="previous-label">Anterior: —</span></div>
+          <div class="recent-balls" id="recent-balls" aria-label="Últimas bolas sorteadas"><span class="history-placeholder">O histórico aparecerá aqui</span></div>
+        </div>
+        <div class="stage-metrics" aria-label="Resumo da partida">
+          <div><span>SORTEADAS</span><strong id="metric-drawn">0</strong></div>
+          <div><span>RESTANTES</span><strong id="metric-remaining">75</strong></div>
+          <div><span>CONCLUÍDO</span><strong id="metric-progress">0%</strong></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel control-panel" aria-labelledby="controls-title">
+      <div class="control-heading">
+        <div><span class="eyebrow">CENTRAL DE COMANDO</span><h2 id="controls-title">Controle da partida</h2></div>
+        <div class="countdown" id="countdown-wrap">
+          <svg class="icon"><use href="#i-clock"/></svg>
+          <div><span id="countdown-label">SORTEIO MANUAL</span><strong id="countdown-value">Automático desligado</strong></div>
+        </div>
+      </div>
+      <div class="controls-grid">
+        <button class="control-button control-start" id="btn-start" type="button" data-action="start"><svg class="icon"><use href="#i-play"/></svg><span>Iniciar jogo</span></button>
+        <button class="control-button" id="btn-pause" type="button" data-action="pause" disabled><svg class="icon"><use href="#i-pause"/></svg><span>Pausar</span></button>
+        <button class="control-button" id="btn-continue" type="button" data-action="continue" disabled><svg class="icon"><use href="#i-play"/></svg><span>Continuar</span></button>
+        <button class="control-button control-next" id="btn-next" type="button" data-action="next" disabled><svg class="icon"><use href="#i-next"/></svg><span>Sortear próxima bola</span></button>
+        <button class="control-button control-tie" type="button" data-action="tie"><svg class="icon"><use href="#i-trophy"/></svg><span>Pedra maior</span></button>
+        <button class="control-button control-finish" id="btn-finish" type="button" data-action="finish" disabled><svg class="icon"><use href="#i-stop"/></svg><span>Finalizar jogo</span></button>
+        <button class="control-button control-new" id="btn-new" type="button" data-action="new"><svg class="icon"><use href="#i-refresh"/></svg><span>Novo jogo</span></button>
+      </div>
+      <div class="timer-track" id="timer-track" role="progressbar" aria-label="Tempo até o próximo sorteio" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="timer-progress"></span></div>
+    </section>
+
+    <section class="stats-grid" aria-label="Estatísticas do jogo">
+      <article class="stat-card"><span class="stat-icon blue"><svg class="icon"><use href="#i-check"/></svg></span><div><span>Bolas sorteadas</span><strong id="stat-drawn">0 <small>/ 75</small></strong></div></article>
+      <article class="stat-card"><span class="stat-icon gold"><svg class="icon"><use href="#i-clock"/></svg></span><div><span>Tempo de partida</span><strong id="stat-time">00:00</strong></div></article>
+      <article class="stat-card"><span class="stat-icon purple"><svg class="icon"><use href="#i-next"/></svg></span><div><span>Sorteios realizados</span><strong id="stat-rounds">0</strong></div></article>
+      <article class="stat-card progress-card"><div class="progress-copy"><span>Progresso da partida</span><strong id="stat-progress">0%</strong></div><div class="stat-progress-track"><span id="stat-progress-bar"></span></div><small id="stat-remaining">75 bolas ainda disponíveis</small></article>
+    </section>
+
+    <section class="panel history-panel" id="history-panel" aria-labelledby="history-title">
+      <header class="panel-heading history-heading">
+        <div><span class="eyebrow">ORDEM DE SORTEIO</span><h2 id="history-title">Histórico da partida</h2></div>
+        <span class="history-total" id="history-total">0 registros</span>
+      </header>
+      <div class="full-history" id="full-history" aria-live="polite"><span class="history-placeholder">Nenhuma bola sorteada nesta partida.</span></div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <span><svg class="icon"><use href="#i-shield"/></svg><span id="save-status">Salvamento automático ativado</span></span>
+    <span class="keyboard-hints"><kbd>Espaço</kbd> sortear <kbd>P</kbd> pausar <kbd>F</kbd> telão</span>
+    <span>BINGO 75 <b>•</b> v1.0</span>
+  </footer>
+
+  <div class="projection-exit-wrap">
+    <button class="projection-exit" type="button" data-action="projection-exit"><svg class="icon"><use href="#i-close"/></svg> Sair do telão <kbd>ESC</kbd></button>
+  </div>
+
+  <dialog class="app-dialog settings-dialog" id="settings-dialog" aria-labelledby="settings-title">
+    <form method="dialog" class="dialog-shell" id="settings-form">
+      <header class="dialog-header"><div><span class="eyebrow">PREFERÊNCIAS DO OPERADOR</span><h2 id="settings-title">Configurações</h2></div><button class="icon-button dialog-close" value="cancel" aria-label="Fechar configurações"><svg class="icon"><use href="#i-close"/></svg></button></header>
+      <div class="dialog-body settings-body">
+        <section class="settings-section"><h3>Sorteio</h3>
+          <label class="field-row"><span><strong>Intervalo entre bolas</strong><small>Tempo para marcar as cartelas</small></span><select id="setting-interval"><option value="5">5 segundos</option><option value="8">8 segundos</option><option value="10">10 segundos</option><option value="15">15 segundos</option><option value="20">20 segundos</option><option value="30">30 segundos</option><option value="custom">Personalizado</option></select></label>
+          <label class="field-row custom-interval-row" id="custom-interval-row" hidden><span><strong>Intervalo personalizado</strong><small>Entre 1 e 300 segundos</small></span><span class="input-suffix"><input id="setting-custom-interval" type="number" min="1" max="300" step="1" value="12"><span>seg</span></span></label>
+          <label class="field-row"><span><strong>Sorteio automático</strong><small>Inicia a contagem após cada bola</small></span><input class="switch" id="setting-auto" type="checkbox" checked></label>
+        </section>
+        <section class="settings-section"><h3>Som e movimento</h3>
+          <label class="field-row"><span><strong>Efeitos sonoros</strong><small>Sons sintetizados, sem arquivos externos</small></span><input class="switch" id="setting-sound" type="checkbox" checked></label>
+          <label class="field-row volume-row"><span><strong>Volume</strong><small id="volume-value">60%</small></span><input id="setting-volume" type="range" min="0" max="100" value="60"></label>
+          <label class="field-row"><span><strong>Animações</strong><small>Movimento e brilho das bolas</small></span><input class="switch" id="setting-animations" type="checkbox" checked></label>
+          <label class="field-row"><span><strong>Velocidade da animação</strong><small>Duração da revelação da bola</small></span><select id="setting-speed"><option value="slow">Suave</option><option value="normal" selected>Normal</option><option value="fast">Rápida</option></select></label>
+        </section>
+        <section class="settings-section"><h3>Exibição e segurança</h3>
+          <label class="field-row"><span><strong>Tema visual</strong><small>Aparência dos painéis e do fundo</small></span><select id="setting-theme"><option value="navy">Azul noturno</option><option value="graphite">Grafite</option><option value="eclipse">Eclipse</option></select></label>
+          <div class="field-row"><span><strong>Modo telão</strong><small>Abre a exibição ampliada para projetores</small></span><button class="button" type="button" data-action="projection"><svg class="icon"><use href="#i-expand"/></svg> Ativar telão</button></div>
+          <label class="field-row"><span><strong>Exibir histórico completo</strong><small>Mostra o painel abaixo das estatísticas</small></span><input class="switch" id="setting-history" type="checkbox" checked></label>
+          <label class="field-row"><span><strong>Confirmar novo jogo</strong><small>Proteção extra contra cliques acidentais</small></span><input class="switch" id="setting-confirm" type="checkbox" checked></label>
+          <label class="field-row"><span><strong>Recuperação automática</strong><small>Restaura a partida atual ao abrir o sistema</small></span><input class="switch" id="setting-recovery" type="checkbox" checked></label>
+        </section>
+      </div>
+      <footer class="dialog-footer"><span><svg class="icon"><use href="#i-check"/></svg> Alterações salvas automaticamente</span><button class="button button-primary" value="default">Concluído</button></footer>
+    </form>
+  </dialog>
+
+  <dialog class="app-dialog recovery-dialog" id="recovery-dialog" aria-labelledby="recovery-title">
+    <div class="dialog-shell">
+      <header class="dialog-header"><div><span class="eyebrow">PROTEÇÃO CONTRA PERDAS</span><h2 id="recovery-title">Recuperar último jogo</h2></div><button class="icon-button dialog-close" data-close="recovery-dialog" aria-label="Fechar recuperação"><svg class="icon"><use href="#i-close"/></svg></button></header>
+      <div class="dialog-body">
+        <div class="recovery-note"><svg class="icon"><use href="#i-shield"/></svg><p><strong>Suas partidas ficam salvas neste navegador.</strong><br>Selecione uma versão para visualizar e restaurar. A versão atual será preservada antes da substituição.</p></div>
+        <div class="recovery-options" id="recovery-options"></div>
+        <label class="reopen-option" id="reopen-option"><input type="checkbox" id="recovery-reopen" checked><span><strong>Reabrir partida finalizada como pausada</strong><small>Permite continuar os sorteios após uma finalização acidental. O registro original finalizado será mantido.</small></span></label>
+      </div>
+      <footer class="dialog-footer"><span>Nenhuma partida é apagada ao recuperar.</span><button class="button" data-close="recovery-dialog">Cancelar</button></footer>
+    </div>
+  </dialog>
+
+  <dialog class="app-dialog tie-dialog" id="tie-dialog" aria-labelledby="tie-title">
+    <div class="dialog-shell">
+      <header class="dialog-header tie-header"><div><span class="eyebrow">MODO ESPECIAL DE DESEMPATE</span><h2 id="tie-title"><svg class="icon"><use href="#i-trophy"/></svg> Pedra maior</h2></div><button class="icon-button dialog-close" data-close="tie-dialog" aria-label="Fechar pedra maior"><svg class="icon"><use href="#i-close"/></svg></button></header>
+      <div class="dialog-body tie-body">
+        <div class="tie-intro"><span class="tie-gem" aria-hidden="true">◆</span><div><strong>Uma pedra. Um vencedor.</strong><p>Cadastre os participantes empatados e faça um sorteio exclusivo, sem alterar as bolas do bingo.</p></div></div>
+        <section class="tie-setup" id="tie-setup">
+          <form class="competitor-form" id="competitor-form"><label class="sr-only" for="competitor-name">Nome do participante</label><input id="competitor-name" type="text" maxlength="60" autocomplete="off" placeholder="Nome do participante empatado"><button class="button button-gold" type="submit"><svg class="icon"><use href="#i-plus"/></svg> Adicionar</button></form>
+          <p class="field-error" id="competitor-error" role="alert"></p>
+          <div class="competitor-list" id="competitor-list"></div>
+        </section>
+        <section class="tie-arena" id="tie-arena" aria-live="assertive">
+          <div class="tie-spotlight" aria-hidden="true"></div>
+          <span class="tie-overline" id="tie-overline">CONCORRENTES NA DISPUTA</span>
+          <div class="tie-name-display" id="tie-name-display"><span>Aguardando participantes</span></div>
+          <p id="tie-result-caption">Adicione pelo menos 2 nomes para iniciar o desempate.</p>
+        </section>
+      </div>
+      <footer class="dialog-footer tie-footer"><span id="tie-count">0 participantes</span><button class="button" id="btn-tie-repeat" type="button" hidden><svg class="icon"><use href="#i-refresh"/></svg> Repetir desempate</button><button class="button button-gold button-large" id="btn-tie-draw" type="button" disabled><svg class="icon"><use href="#i-trophy"/></svg> Sortear pedra maior</button></footer>
+    </div>
+  </dialog>
+
+  <dialog class="app-dialog confirm-dialog" id="confirm-dialog" aria-labelledby="confirm-title">
+    <div class="dialog-shell">
+      <div class="confirm-symbol" id="confirm-symbol"><svg class="icon"><use href="#i-shield"/></svg></div>
+      <div class="confirm-content"><span class="eyebrow">CONFIRMAÇÃO NECESSÁRIA</span><h2 id="confirm-title">Confirmar ação</h2><p id="confirm-message"></p></div>
+      <footer class="dialog-footer"><button class="button" id="confirm-cancel" type="button">Cancelar</button><button class="button button-danger" id="confirm-accept" type="button">Confirmar</button></footer>
+    </div>
+  </dialog>
+
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+  <noscript><div class="noscript">Ative o JavaScript para operar o Chamador de Bingo 75.</div></noscript>
+
+  <script src="js/engine.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
